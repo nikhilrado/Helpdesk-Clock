@@ -1,7 +1,7 @@
 config = {
 	"time modes": {
 		"normal": {
-			"times": ["08:24","22:28","18:09"],
+			"times": ["8:14","9:03","9:52","10:41","11:30","12:19","1:08","1:57"],
 			"ring x min before": 10
 		}
 	}
@@ -9,7 +9,7 @@ config = {
 
 mode = "normal"
 //ringAt = config["time modes"][mode]["times"]
-ringAt = ["08:24","22:28",,"18:09","18:10","18:11","18:12","18:13","18:14","18:15","18:16","18:17","18:18","18:19","18:20","18:21","18:22","18:23","18:24","18:25","18:26","18:27","18:28","18:29","18:30","18:31","18:32","18:33","18:34"]
+ringAt =["8:14","9:03","9:52","10:41","11:30","12:19","1:08","1:57"]
 for (const time of config["time modes"][mode]["times"]) {
 	console.log(time)
 	date = new Date(time)
@@ -33,7 +33,6 @@ function play() {
             //var audio = new Audio('https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3');
 	var audio = new Audio('/chime1.wav');
 	audio.play();
-            audio.play();
 }
 
 function showTime(){
@@ -44,8 +43,8 @@ function showTime(){
     var session = "AM";
 
 		console.log(timeMatch(h + ":" + m))
-	  console.log(s)
-	  console.log(s == 0)
+	  //console.log(s)
+	  //console.log(s == 0)
 		if (timeMatch(h + ":" + m) && s == 0){
 			play()
 		}
