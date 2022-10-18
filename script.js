@@ -3,19 +3,24 @@ config = {
 		"normal": {
 			"times": ["8:14","9:03","9:52","10:41","11:30","12:19","1:08","1:57"],
 			"ring x min before": 10
+		},
+		"end of day assembly": {
+			"times": ["8:06","8:47","9:28","10:09","10:50","11:31","12:12","12:53"],
+			"ring x min before": 10
 		}
 	}
 }
 
+// sets when the clock should ring
 mode = "normal"
-//ringAt = config["time modes"][mode]["times"]
-ringAt =["8:14","9:03","9:52","10:41","11:30","12:19","1:08","1:57"]
-for (const time of config["time modes"][mode]["times"]) {
-	console.log(time)
-	date = new Date(time)
-	console.log(date.getHours())
-	ringAt.push(Date.parse(time))
+function refreshRingAt(){
+	ringAt = []
+	for (const time of config["time modes"][mode]["times"]) {
+		ringAt.push(time)
+	}
 }
+refreshRingAt()
+
 //console.log(ringAt[1].getSeconds())
 
 function onBtnClick() {
@@ -23,15 +28,16 @@ function onBtnClick() {
 }
 
 function timeMatch (time) {
+	console.log(time)
 	if (ringAt.includes(time)) {
 		return true
 	}
 	return false;
 }
 
+var audio = new Audio('/chime1.wav');
 function play() {
             //var audio = new Audio('https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3');
-	var audio = new Audio('/chime1.wav');
 	audio.play();
 }
 
@@ -42,12 +48,10 @@ function showTime(){
     var s = date.getSeconds(); // 0 - 59
     var session = "AM";
 
-		console.log(timeMatch(h + ":" + m))
+		//console.log(timeMatch(h + ":" + m))
 	  //console.log(s)
 	  //console.log(s == 0)
-		if (timeMatch(h + ":" + m) && s == 0){
-			play()
-		}
+
 	
     //if(h == 0){
     //    h = 12;
@@ -66,6 +70,10 @@ function showTime(){
 	  //console.log(date.getTime());
     document.getElementById("MyClockDisplay").innerText = time;
     document.getElementById("MyClockDisplay").textContent = time;
+
+		if (timeMatch(h + ":" + m) && s == 0){
+			play()
+		}
     
     setTimeout(showTime, 1000 * 1);
 
@@ -76,4 +84,19 @@ function showTime(){
 window.onload = (event) => {
 	showTime();
 	console.log("loaded")
+
+	var form = document.getElementById('schedule-picker');
+	form.addEventListener('change', function() {
+		play()
+		if (document.getElementById("normal-selected").checked) {
+			mode = "normal"
+		}
+		if (document.getElementById("end-of-day-selected").checked) {
+			mode = "end of day assembly"
+		}
+		console.log("mode is now: " + mode)
+		refreshRingAt()
+	});
+	
 };
+

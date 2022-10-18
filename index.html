@@ -13,9 +13,17 @@
 	
 <div id="main">
 <p id="MyClockDisplay" class="clock" onload="showTime()">clock</p>
-<button id="onBtn" onclick="onBtnClick()">Click to Activate</button>
-</div>
+<!-- <button id="onBtn" onclick="onBtnClick()">Click to Activate</button -->
 
+
+<form id="schedule-picker">
+  <p>Select a schedule:</p>
+  <input type="radio" id="normal-selected" name="schedule-picker-ans">
+  <label for="html">Normal</label><br>
+  <input type="radio" id="end-of-day-selected" name="schedule-picker-ans">
+  <label for="css">End of Day Assembly</label><br>
+</form>
+</div>
 </body>
 
 </html>
